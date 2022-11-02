@@ -15,11 +15,12 @@ namespace Task6
             Заполнить массив числами, вводимыми с клавиатуры. 
             Проверить, является ли введенная с клавиатуры матрица магическим квадратом.
             */
-            Console.WriteLine("Введите размерность массива");
+            Console.WriteLine("Введите размерность массива:");
             int n = Convert.ToInt32(Console.ReadLine());
             int[,] array = new int[n, n];
-            
-            //Dвод чисел в массив
+            Console.WriteLine();
+
+            //Ввод чисел в массив
             for (int i = 0; i < n; i++)     
             {
                 for (int j = 0; j < n; j++)
@@ -46,8 +47,7 @@ namespace Task6
             int rowSum = 0;
             int dgnlSum1 = 0;
             int dgnlSum2 = 0;
-            int m = n + 2;
-            int[,] compareArray = new int[2, m];
+            int[,] compareArray = new int[2, n+1];
             
             //Суммы строк
             for (int i = 0; i < n; i++)
@@ -82,8 +82,8 @@ namespace Task6
                     }
                 }
             }
-            compareArray[1, m] = dgnlSum1;
-            /*
+            compareArray[0, n] = dgnlSum1;
+            
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
@@ -94,18 +94,33 @@ namespace Task6
                     }
                 }
             }
-            compareArray[2, n + 1] = dgnlSum2;*/
+            compareArray[1, n] = dgnlSum2;
 
-            //Выводим 
-            for (int i = 0; i < n; i++)
+            //Сравниваем сумму строк, столбцов, диагоналей
+            bool t = true;
+            for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
-                    Console.Write("{0} ", compareArray[i, j]);
+                    if (compareArray[i, j] != compareArray[i, j + 1])
+                    { 
+                        t = false;
+                        break;
+                    }
                 }
-                Console.WriteLine();
             }
+            if (compareArray[0, 0] != compareArray[1, 0])
+            {
+                t = false;
+            }
+
+
+            if (t == true)
+                 Console.WriteLine("Массив является магическим квадратом");
+            else Console.WriteLine("Массив не является магическим квадратом");
+
             Console.ReadKey();
+
 
         }
     }
